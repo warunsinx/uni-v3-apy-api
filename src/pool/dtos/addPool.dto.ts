@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { GetPoolDto } from 'src/apy/dto/getPool.dto';
+import { GetPoolDto } from 'src/pool/dtos/getPool.dto';
 
 export class AddPoolDto extends PartialType(GetPoolDto) {}

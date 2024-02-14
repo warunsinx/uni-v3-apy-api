@@ -1,18 +1,19 @@
 import { Body, Controller, Delete, Post } from '@nestjs/common';
 import { AddPoolDto } from './dtos/addPool.dto';
 import { RemovePoolDto } from './dtos/removePool.dto';
+import { PoolService } from './pool.service';
 
 @Controller('pool')
 export class PoolController {
+  constructor(private readonly poolService: PoolService) {}
+
   @Post()
   addPool(@Body() addPoolDto: AddPoolDto) {
-    console.log(addPoolDto);
-    return '200 OK';
+    return this.poolService.addPool(addPoolDto);
   }
 
   @Delete()
   removePool(@Body() removePoolDto: RemovePoolDto) {
-    console.log(removePoolDto);
-    return '200 OK';
+    return this.poolService.removePool(removePoolDto);
   }
 }
