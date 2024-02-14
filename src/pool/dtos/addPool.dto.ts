@@ -1,6 +1,4 @@
-import { IsEthereumAddress } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { GetPoolDto } from 'src/apy/dto/getPool.dto';
 
-export class AddPoolDto {
-  @IsEthereumAddress()
-  poolAddress: string;
-}
+export class AddPoolDto extends PartialType(GetPoolDto) {}
