@@ -43,7 +43,7 @@ export class ApyService {
     `;
 
     const res = (await request(
-      configuration().subgrpah.uniswap_v3_endpoint,
+      configuration().chain.ethereum.uniswap_v3_subgraph_endpoint,
       document,
     )) as unknown as {
       pool: {

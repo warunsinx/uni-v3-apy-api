@@ -13,7 +13,6 @@ export function calculateAPY(
   poolData: PoolData,
   historicalData: HistoricalData,
 ): number {
-  console.log(poolData, historicalData);
   const feePercentage: number = parseFloat(poolData.feeTier) / 10000;
   const feesToken0: number = parseFloat(poolData.volumeToken0) * feePercentage;
   const feesToken1: number = parseFloat(poolData.volumeToken1) * feePercentage;
