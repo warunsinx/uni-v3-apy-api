@@ -28,3 +28,36 @@ docker run -e MONGODB_URI="your_mongodb_uri" -e PORT=your_desired_port -p your_d
 - PORT: Port on which the API will be exposed.
 
 Replace your_mongodb_uri and your_desired_port with your MongoDB connection URI and the desired port number, respectively.
+
+## Utilizing the API
+
+GET /apy
+Calculate and return the 24-hour Annual Percentage Yield (APY) for a specified Uniswap V3 pool address on Ethereum.
+
+- Endpoint: `/apy`
+- Method: `GET`
+- Query Parameters:
+  - `poolAddress` (string): Ethereum pool address (e.g., `/apy?poolAddress=0xcbcdf9626bc03e24f779434178a73a0b4bad62ed`)
+
+POST /pool
+Add a new Ethereum pool address to a maintained list/database.
+- Endpoint: /pool
+- Method: `POST`
+- Request Body:
+```json
+  {
+  "poolAddress": "0xcbcdf9626bc03e24f779434178a73a0b4bad62ed"
+  }
+```
+
+DELETE /pool
+Remove an Ethereum pool address from the list/database.
+- Endpoint: /pool
+- Method: `DELETE`
+- Request Body:
+```json
+  {
+  "poolAddress": "0xcbcdf9626bc03e24f779434178a73a0b4bad62ed"
+  }
+```
+  
