@@ -14,7 +14,7 @@ export class ApyService {
     const pool = this.poolService.getPool(getPoolDto);
 
     if (!pool) {
-      throw new BadRequestException('Pool not found');
+      throw new BadRequestException('Pool does not exist in the database');
     }
 
     const provider = new ethers.JsonRpcProvider(

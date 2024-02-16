@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Pool } from 'src/schemas/pool.schema';
@@ -15,13 +15,15 @@ export class PoolService {
   }
 
   async addPool(addPoolDto: AddPoolDto) {
-    const pool = await this.poolModel.findOne(addPoolDto);
-    if (pool) return pool;
+    const pool = this.getPool(addPoolDto);
+    if (pool) throw new BadRequestException('Pool already exists');
     const newPool = new this.poolModel(addPoolDto);
     return newPool.save();
   }
 
   async removePool(removePoolDto: RemovePoolDto) {
+    const pool = this.getPool(removePoolDto);
+    if (!pool) throw new BadRequestException('Pool does not exist');
     return this.poolModel.deleteOne(removePoolDto);
   }
 }
