@@ -11,7 +11,7 @@ export class ApyService {
   constructor(private readonly poolService: PoolService) {}
 
   async getApy(getPoolDto: GetPoolDto) {
-    const pool = this.poolService.getPool(getPoolDto);
+    const pool = await this.poolService.getPool(getPoolDto);
 
     if (!pool) {
       throw new BadRequestException('Pool does not exist in the database');

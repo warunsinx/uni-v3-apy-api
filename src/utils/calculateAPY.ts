@@ -13,15 +13,13 @@ export function calculateAPY(
   poolData: PoolData,
   historicalData: HistoricalData,
 ): number {
-  const feePercentage: number = parseFloat(poolData.feeTier) / 10000;
-  const feesToken0: number = parseFloat(poolData.volumeToken0) * feePercentage;
-  const feesToken1: number = parseFloat(poolData.volumeToken1) * feePercentage;
-  const totalFees: number = feesToken0 + feesToken1;
-
-  const totalValueLocked: number =
-    historicalData.totalValueLockedToken0 +
-    historicalData.totalValueLockedToken1;
-
-  const apy: number = Math.pow(1 + totalFees / totalValueLocked, 365) - 1;
-  return apy * 100;
+  //fee = feeTier * volume24H * (deltaLiquiudit / (L + deltaLiquidity))
+  const fee =
+    parseFloat(poolData.feeTier) *
+    parseFloat(poolData.volumeToken0) *
+    (parseFloat(poolData.volumeToken0) /
+      (historicalData.totalValueLockedToken0 +
+        parseFloat(poolData.volumeToken0)));
+  //APY = fee * 365 / (L + deltaLiquidity)
+  return (fee * 365) / historicalData.totalValueLockedToken0;
 }

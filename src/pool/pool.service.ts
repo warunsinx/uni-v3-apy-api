@@ -15,14 +15,14 @@ export class PoolService {
   }
 
   async addPool(addPoolDto: AddPoolDto) {
-    const pool = this.getPool(addPoolDto);
+    const pool = await this.getPool(addPoolDto);
     if (pool) throw new BadRequestException('Pool already exists');
     const newPool = new this.poolModel(addPoolDto);
     return newPool.save();
   }
 
   async removePool(removePoolDto: RemovePoolDto) {
-    const pool = this.getPool(removePoolDto);
+    const pool = await this.getPool(removePoolDto);
     if (!pool) throw new BadRequestException('Pool does not exist');
     return this.poolModel.deleteOne(removePoolDto);
   }
