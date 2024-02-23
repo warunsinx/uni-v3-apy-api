@@ -32,12 +32,9 @@ export class ApyService {
           id: "${getPoolDto.poolAddress}"
           block: { number_gte: ${last24hrsBlock} }
         ) {
-          totalValueLockedToken0,
-          totalValueLockedToken1
-          feesUSD,
+          volumeUSD,
           feeTier,
-          volumeToken0
-          volumeToken1
+    			totalValueLockedUSD
         }
       }
     `;
@@ -47,27 +44,12 @@ export class ApyService {
       document,
     )) as unknown as {
       pool: {
-        totalValueLockedToken0: string;
-        totalValueLockedToken1: string;
-        feesUSD: string;
+        volumeUSD: string;
         feeTier: string;
-        volumeToken0: string;
-        volumeToken1: string;
+        totalValueLockedUSD: string;
       };
     };
 
-    const poolData = res.pool;
-
-    return calculateAPY(
-      {
-        feeTier: poolData.feeTier,
-        volumeToken0: poolData.volumeToken0,
-        volumeToken1: poolData.volumeToken1,
-      },
-      {
-        totalValueLockedToken0: +poolData.totalValueLockedToken0,
-        totalValueLockedToken1: +poolData.totalValueLockedToken1,
-      },
-    );
+    return calculateAPY(res.pool);
   }
 }
